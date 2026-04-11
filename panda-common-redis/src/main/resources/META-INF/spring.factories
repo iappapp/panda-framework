@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.github.iappapp.panda.common.redis.config.RedisAutoConfiguration,\
+  com.github.iappapp.panda.common.redis.config.RedisReactiveAutoConfiguration,\
+  com.github.iappapp.panda.common.redis.config.RedissonAutoConfiguration

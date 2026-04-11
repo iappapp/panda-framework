@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.github.iappapp.panda.common.orm.mybatis.config.MybatisConfig,\
+    com.github.iappapp.panda.common.orm.mybatis.routing.DynamicDataSourceRoutingHandler

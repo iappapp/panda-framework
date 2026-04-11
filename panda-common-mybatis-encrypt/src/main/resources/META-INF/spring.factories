@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.github.iappapp.panda.common.encrypt.SpringContextHolder,\
+  com.github.iappapp.panda.common.encrypt.SpringEncryptUtils,\
+  com.github.iappapp.panda.common.encrypt.MybatisInterceptorAutoConfiguration
