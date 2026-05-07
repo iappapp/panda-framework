@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
+import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -24,6 +25,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Configuration
 @EnableSwagger2
@@ -46,11 +48,30 @@ public class SwaggerConfiguration {
 
     @Bean
     public Docket swaggerConfig(ApiInfo apiInfo) {
+        String[] basePackages = basePackage.split(",");
+
+        Predicate<RequestHandler> predicate = input -> {
+
+            Class<?> declaringClass = input.declaringClass();
+
+            if (declaringClass == null) {
+                return false;
+            }
+
+            String packageName = declaringClass.getPackage().getName();
+
+            for (String basePack : basePackages) {
+                if (packageName.startsWith(basePack.trim())) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
-                .pathMapping(contextPath)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(basePackage))
+                .apis(predicate)
                 .paths(PathSelectors.any())
                 .build();
     }
