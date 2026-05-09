@@ -38,6 +38,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 
@@ -46,15 +47,15 @@ import org.springframework.web.util.ContentCachingRequestWrapper;
  * @author tiger
  * @date 2025-06-26
  */
-@ControllerAdvice
+@RestControllerAdvice
 public class PandaLogResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     private static final Logger log = LoggerFactory.getLogger(PandaLogResponseBodyAdvice.class);
     private static final String DEFAULT_CHARSET = "UTF-8";
-    @Value(value="${panda.base.spring.log.return.length:1024}")
+    @Value(value="${panda.base.spring.log.length:1024}")
     private Integer rtnMsgLength;
-    @Value(value="${panda.base.spring.log.return.black.url:}")
+    @Value(value="${panda.base.spring.log.black.url:}")
     private String logReturnBlackUrl;
-    @Value(value="${panda.base.spring.log.return.enable:true}")
+    @Value(value="${panda.base.spring.log.enable:true}")
     private boolean logReturnEnable;
 
     @Override

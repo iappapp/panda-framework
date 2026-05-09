@@ -67,7 +67,7 @@ public class PandaResponseBodyAdvice implements ResponseBodyAdvice {
     }
 
     /**
-     * 
+     *
      * @param body
      * @param methodParameter
      * @param mediaType
@@ -84,21 +84,17 @@ public class PandaResponseBodyAdvice implements ResponseBodyAdvice {
             return null;
         }
 
-        if (body instanceof BaseResult || excludeResult(body)) {
+        if (body.getClass().getName().equals("springfox.documentation.swagger.web.UiConfiguration")
+                || body.getClass().getName().equals("springfox.documentation.swagger.web.SecurityConfiguration")) {
             return body;
-        } else if (body instanceof File) {
-            return body;
-        } else if (body instanceof String) {
-            BaseResult baseResult = BaseResult.success(body);
-            return JSON.toJSONString(baseResult);
-        } else {
-            return BaseResult.success(body);
         }
+
+        return body;
     }
 
     /**
      * 为了之前系统中的JsonResp，增加过滤方法，使得业务系统在使用时复写方法，这样兼容旧代码
-     * 
+     *
      * @return
      */
     public boolean excludeResult(Object body) {
