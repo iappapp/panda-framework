@@ -10,4 +10,9 @@ public interface ApiConstant {
      * 请求头版本字段
      */
     String API_VERSION_HEADER = "X-API-VERSION";
+
+    /**
+     * URL路径版本前缀模式（仅支持 /v{version} 格式）
+     */
+    String VERSION_PATH_PATTERN = "/v{version}";
 }
