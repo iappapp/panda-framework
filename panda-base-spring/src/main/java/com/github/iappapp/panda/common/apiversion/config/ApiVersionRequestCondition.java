@@ -28,7 +28,6 @@ public class ApiVersionRequestCondition implements RequestCondition<ApiVersionRe
 
     // Pattern to match version suffix in URL path (ONLY at the end)
     // Supports: /api/users/v1.2.0 ✅
-    // NOT supports: /api/v1.2.0/users ❌
     private static final Pattern VERSION_PATTERN = Pattern.compile(".*?/v(\\d+\\.\\d+\\.\\d+)$");
 
     public ApiVersionRequestCondition() {
@@ -106,10 +105,6 @@ public class ApiVersionRequestCondition implements RequestCondition<ApiVersionRe
             case URI:
                 return extractVersionFromPath(request.getRequestURI());
                 
-            case PARAM:
-                // TODO: Support query parameter mode if needed
-                return request.getParameter("api-version");
-                
             default:
                 log.warn("Unknown API version type: {}, defaulting to HEADER", type);
                 return request.getHeader(ApiConstant.API_VERSION_HEADER);
@@ -119,7 +114,6 @@ public class ApiVersionRequestCondition implements RequestCondition<ApiVersionRe
     /**
      * Extract version from URL path (ONLY when version is at the end)
      * Supports patterns like: /api/users/v1.2.0, /products/v1.0.0
-     * NOT supports: /api/v1.2.0/users, /v1.0.0/products/list
      * Note: Only supports versions with 'v' prefix at the END of path
      * 
      * @param requestURI the request URI

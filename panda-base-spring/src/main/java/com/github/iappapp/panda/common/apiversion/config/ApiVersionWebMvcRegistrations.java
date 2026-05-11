@@ -49,19 +49,13 @@ public class ApiVersionWebMvcRegistrations implements WebMvcRegistrations {
             }
             
             return new ApiVersionRequestCondition(
-                ApiConverter.convert(apiVersion.value()), 
-                false, 
-                apiVersionProperties
-            );
+                ApiConverter.convert(apiVersion.value()), false, apiVersionProperties);
         }
 
         private ApiVersionRequestCondition getDefaultCondition() {
             // Default version 1.0.0, marked as isNull=true
             return new ApiVersionRequestCondition(
-                ApiConverter.convert(ApiConstant.DEFAULT_VERSION), 
-                true, 
-                apiVersionProperties
-            );
+                ApiConverter.convert(ApiConstant.DEFAULT_VERSION), true, apiVersionProperties);
         }
     }
 }

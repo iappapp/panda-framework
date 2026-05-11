@@ -15,7 +15,6 @@ public class ApiVersionProperties implements Serializable {
     public enum Type {
         URI,
         HEADER,
-        PARAM,
         ;
     }
 

@@ -155,9 +155,13 @@ public class UriApiVersionWebMvcRegistrations implements WebMvcRegistrations {
                 // Create a modified request with stripped path for matching
                 HttpServletRequest wrappedRequest = new VersionStrippedHttpServletRequest(request, 
                     contextPath + strippedPath);
-                return super.getMatchingMapping(info, wrappedRequest);
+                RequestMappingInfo mapping = super.getMatchingMapping(info, wrappedRequest);
+                if (mapping != null) {
+                    log.debug("[URI Mode] Found matching mapping with stripped version path: {}", mapping.getPatternsCondition());
+                    return mapping;
+                }
             }
-            
+            // fallback
             return super.getMatchingMapping(info, request);
         }
 
