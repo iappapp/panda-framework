@@ -22,7 +22,7 @@ public class ApiItem implements Comparable<ApiItem> {
     }
 
     public ApiItem(String version) {
-        String[] apiVersion = version.split(",");
+        String[] apiVersion = version.split("\\.");
         if (apiVersion.length != 3) {
             // ignore
         } else {

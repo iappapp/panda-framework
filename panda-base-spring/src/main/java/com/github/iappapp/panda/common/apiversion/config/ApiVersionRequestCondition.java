@@ -63,14 +63,8 @@ public class ApiVersionRequestCondition implements RequestCondition<ApiVersionRe
 
     @Override
     public int compareTo(ApiVersionRequestCondition other, HttpServletRequest httpServletRequest) {
-        String version = httpServletRequest.getHeader(ApiConstant.API_VERSION_HEADER);
-        if (StringUtils.isEmpty(version)) {
-            return 0;
-        }
-        ApiItem apiItem = new ApiItem(version);
-        // TODO
-        int compare = apiItem.compareTo(other.getApiVersion());
-
-        return compare;
+        // Compare this handler's version with other handler's version
+        // Higher version should have higher priority (return negative means this has higher priority)
+        return other.getApiVersion().compareTo(this.apiVersion);
     }
 }
